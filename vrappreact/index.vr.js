@@ -1,8 +1,8 @@
 import React from 'react';
+
 import {
   AppRegistry,
   asset,
-  Model,
   Pano,
   Text,
   View,
@@ -10,7 +10,9 @@ import {
   Sound, 
   VrButton
 } from 'react-vr';
+
 import Turtle from './Turtle';
+import Panels from './Panels';
 
 export default class vrappreact extends React.Component {
   constructor(props) {
@@ -28,13 +30,13 @@ export default class vrappreact extends React.Component {
     if (this.state.background == "welcome.jpg"){
       this.setState({
         background: 'background.jpg',
-        sound: 'outside.wav',        
+        // sound: 'outside.wav',        
         visible: true
       });
     } else {
       this.setState({
         background: 'welcome.jpg',
-        sound: 'home.wav',
+        // sound: 'home.wav',
         visible: false
       });
     }
@@ -59,26 +61,19 @@ export default class vrappreact extends React.Component {
     }
   }
 
+  renderPanels(){
+    if (this.state.visible === true) {
+      return <Panels />
+    }
+  }
+
   render() {
     return (
       <View>
         <AmbientLight intensity={ 2.5 } />
-        <Pano source={asset(this.state.background)} />    
-        
-        {/*
-        <Video 
-          source={{
-            mp4: asset('turtles.mp4')
-          }}
-          style={{
-              transform: [
-                  { translate: [0, 0, -3] },
-                  //{ rotateY: 90 }
-              ]
-          }}
-        />
-        */}
-        
+
+        <Pano source={asset(this.state.background)} />          
+               
         <VrButton onClick={this.changeScene.bind(this)}>
           <Text
             style={{
@@ -118,7 +113,8 @@ export default class vrappreact extends React.Component {
             Settings
           </Text>
         </VrButton>
-        {this.renderItems()}
+        {this.renderItems()}      
+        {this.renderPanels()}      
       </View>
     );
   }
